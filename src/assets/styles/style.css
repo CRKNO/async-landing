@@ -1,0 +1,118 @@
+:root{
+    --white-smoke: whitesmoke;
+    --white: #fff;
+    --dark-grey: #101010;
+    --very-dark-violet: #190033;
+    --border-color: rebeccapurple;
+}
+*{
+    margin: 0;
+    padding: 0;
+}
+
+
+/* ||Utilities */
+
+.buttom-border{
+    border-block-end: .3rem solid var(--border-color);
+}
+/* ||General */
+
+html{
+    width: 100%;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+body{
+    min-height: 100%;
+    background-color: var(--dark-grey);
+    color: var(--white-smoke);
+}
+li{
+    list-style: none;
+}
+
+/* ||Navbar layout */
+header{
+    display: flex;
+    align-items: center;
+
+    padding-block-end: .2rem;
+    box-sizing: border-box;
+}
+h1{
+    padding-inline: 3rem;
+}
+nav{
+    display:flex;
+    width: 100%;
+    justify-content: center;
+}
+nav ul{
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+
+    font-size: 1.2rem;
+}
+nav ul a{
+    color:inherit;
+    text-decoration: none;
+}
+nav ul a:hover{
+    text-decoration: underline;
+}
+/* ||Videos layout */
+
+main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 4rem;
+
+    padding-inline: 2rem;
+    margin-block-start: 5rem;
+}
+section{
+    place-content: center;
+    gap: 1.5rem;
+
+    width: 80%;
+    max-width: 75rem;
+}
+section .title{
+    grid-column: 1/-1;
+
+    padding-block-end: 2rem;
+}
+.most-popular{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 240px);
+    grid-template-rows: 2rem 1fr;
+
+}
+
+/* ||Cards layout */
+
+.video-card{
+    width: 240px;
+}
+.video-card img{
+    width: 240px;
+    height: 180px;
+    border-radius: .5rem;
+}
+.video-card p{
+    height: 3.38rem;
+    box-sizing: border-box;
+    padding-inline: 0.8rem;
+    padding-block: 0.5rem;
+    
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.last-videos{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 240px);
+    grid-template-rows:2rem repeat(2, 1fr);
+}
