@@ -1,9 +1,8 @@
 :root{
     --white-smoke: whitesmoke;
-    --white: #fff;
-    --dark-grey: #101010;
-    --very-dark-violet: #190033;
-    --border-color: rebeccapurple;
+    --very-dark-grey: #101010;
+    --dark-grey: #1f1f1f;
+    --violet: rebeccapurple;
 }
 *{
     margin: 0;
@@ -13,31 +12,42 @@
 
 /* ||Utilities */
 
-.buttom-border{
-    border-block-end: .3rem solid var(--border-color);
+.bottom-border{
+    border-block-end: .3rem solid var(--violet);
 }
+
+
 /* ||General */
 
 html{
+    position:relative;
+
     width: 100%;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 body{
     min-height: 100%;
-    background-color: var(--dark-grey);
+    background-color: var(--very-dark-grey);
     color: var(--white-smoke);
 }
 li{
     list-style: none;
 }
 
+
 /* ||Navbar layout */
+
 header{
     display: flex;
     align-items: center;
+    position:fixed;
+    top: 0;
 
+    width: 100%;
     padding-block-end: .2rem;
     box-sizing: border-box;
+
+    background-color: var(--very-dark-grey);
 }
 h1{
     padding-inline: 3rem;
@@ -61,6 +71,8 @@ nav ul a{
 nav ul a:hover{
     text-decoration: underline;
 }
+
+
 /* ||Videos layout */
 
 main{
@@ -69,8 +81,9 @@ main{
     align-items: center;
     row-gap: 4rem;
 
-    padding-inline: 2rem;
-    margin-block-start: 5rem;
+    min-height: 100vh;
+    padding-block: 8rem;
+    background-color: var(--dark-grey);
 }
 section{
     place-content: center;
@@ -91,18 +104,24 @@ section .title{
 
 }
 
+
 /* ||Cards layout */
 
 .video-card{
     width: 240px;
 }
+.video-card:hover{
+    border-radius: .3rem;
+    
+    cursor: pointer;
+    background-color: var(--very-dark-grey);
+}
 .video-card img{
-    width: 240px;
+    width: 100%;
     height: 180px;
     border-radius: .5rem;
 }
 .video-card p{
-    height: 3.38rem;
     box-sizing: border-box;
     padding-inline: 0.8rem;
     padding-block: 0.5rem;
@@ -115,4 +134,32 @@ section .title{
     display: grid;
     grid-template-columns: repeat(auto-fill, 240px);
     grid-template-rows:2rem repeat(2, 1fr);
+}
+/* Placeholder */
+.video-card-placeholder img, .video-card-placeholder p{
+    visibility: hidden;
+}
+
+/* || Footer */
+
+footer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-block: 1.5rem;
+    padding-inline: 3.5rem;
+}
+footer h2{
+    color:var(--violet);
+}
+footer h2::first-line{
+    color:var(--white-smoke);
+}
+footer div{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+footer img{
+    width: 2.5rem;
 }
