@@ -16,6 +16,8 @@ const options = {
     try{
         const videos = await (await fetch(API, options)).json();
         const popularVideos = await (await fetch(API2, options)).json();
+        const popularVideosPlaceholders = document.querySelectorAll(".popular-videos-placeholder");
+        const lastVideosPlaceholders = document.querySelectorAll(".last-videos-placeholder");
 
         for(let video of videos.items){
             let aux = createCards(video);
@@ -25,6 +27,9 @@ const options = {
             })
             lastVideosSection.append(aux);
         }
+        for(let placeholder of popularVideosPlaceholders){
+            placeholder.remove();
+        }
 
         for(let video of popularVideos.items){
             let aux = createCards(video);
@@ -33,6 +38,9 @@ const options = {
                 console.log(video.id.videoId)
             })
             mostPopularSection.append(aux);
+        }
+        for(let placeholder of lastVideosPlaceholders){
+            placeholder.remove();
         }
 
         const cards = null || document.querySelectorAll(".video-card");
@@ -44,7 +52,7 @@ const options = {
 })();
 
 function createCards(video){
-    
+
 let div = document.createElement("div");
 div.classList.add("video-card");
 
