@@ -162,4 +162,9 @@ footer div{
 }
 footer img{
     width: 2.5rem;
+    border: .3rem solid transparent;
+}
+footer img:hover{
+    width: 3rem;
+    border:0;
 }
