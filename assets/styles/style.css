@@ -38,7 +38,8 @@ li{
 /* ||Navbar layout */
 
 header{
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     align-items: center;
     position:fixed;
     top: 0;
@@ -147,7 +148,7 @@ footer{
     justify-content: space-between;
     align-items: center;
     padding-block: 1.5rem;
-    padding-inline: 3.5rem;
+    padding-inline: 3rem;
 }
 footer h2{
     color:var(--violet);
