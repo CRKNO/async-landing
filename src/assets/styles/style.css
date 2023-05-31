@@ -38,7 +38,8 @@ li{
 /* ||Navbar layout */
 
 header{
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     align-items: center;
     position:fixed;
     top: 0;
