@@ -103,7 +103,7 @@ section .title{
 
     padding-block-end: 2rem;
 }
-.most-popular{
+.most-popular, .last-videos, .serial-videos{
     display: grid;
     grid-template-columns: repeat(auto-fill, 240px);
     grid-template-rows: 2rem 1fr;
@@ -135,11 +135,6 @@ section .title{
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
-}
-.last-videos{
-    display: grid;
-    grid-template-columns: repeat(auto-fill, 240px);
-    grid-template-rows:2rem repeat(2, 1fr);
 }
 /* Placeholder */
 .video-card-placeholder img, .video-card-placeholder p{
