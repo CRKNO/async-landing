@@ -1,0 +1,27 @@
+{
+  "name": "async-landing",
+  "version": "1.0.0",
+  "description": "Platzi asynchronous JavaScript course project",
+  "main": "index.js",
+  "scripts": {
+    "deploy": "gh-pages -d src"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CRKNO/async-landing.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/CRKNO/async-landing/issues"
+  },
+  "homepage": "https://github.com/CRKNO/async-landing#readme",
+  "dependencies": {
+    "node-fetch": "^3.3.1"
+  },
+  "devDependencies": {
+    "gh-pages": "^5.0.0"
+  }
+}

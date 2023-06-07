@@ -33,6 +33,12 @@ body{
 li{
     list-style: none;
 }
+a{
+    text-decoration: none;
+}
+a:visited{
+    color:var(--white-smoke);
+}
 
 
 /* ||Navbar layout */
@@ -67,7 +73,6 @@ nav ul{
 }
 nav ul a{
     color:inherit;
-    text-decoration: none;
 }
 nav ul a:hover{
     text-decoration: underline;
