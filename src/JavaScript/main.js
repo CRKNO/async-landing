@@ -17,67 +17,6 @@ const options = {
 	}
 }
 
-for(item of navItems){
-    item.addEventListener("click", (e)=>{
-        let target = e.target;
-        console.log(target.textContent);
-        switch(target.textContent){
-            case "Home":
-                for(let section of allSections){
-                    if(section.classList.contains("most-popular") || section.classList.contains("last-videos")){
-                        section.classList.remove("inactive");
-                    }
-                    else{
-                        section.classList.add("inactive");
-                    }
-                }
-
-                break;
-            case "Videos":
-                for(let section of allSections){
-                    if(section.classList.contains("all-videos")){
-                        section.classList.remove("inactive");
-                    }
-                    else{
-                        section.classList.add("inactive");
-                    }
-                }
-                fetchAllVideos();
-                break;
-            case "Series":
-                for(let section of allSections){
-                    if(section.classList.contains("series")){
-                        section.classList.remove("inactive");
-                    }
-                    else{
-                        section.classList.add("inactive");
-                    }
-                }
-                break;
-        }
-    });
-}
-
-(async () =>{ //auto-executable anonimous function
-    try{
-        const videos = await (await fetch(APIVIDEOS, options)).json();
-        const popularVideos = await (await fetch(APIMOSTPOPULAR, options)).json();
-        const popularVideosPlaceholders = document.querySelectorAll(".popular-videos-placeholder");
-        const lastVideosPlaceholders = document.querySelectorAll(".last-videos-placeholder");
-
-        putVideos(popularVideos, mostPopularSection);
-        removeVideos(popularVideosPlaceholders);
-        
-        putVideos(videos, lastVideosSection);
-        removeVideos(lastVideosPlaceholders);
-
-        const cards = null || document.querySelectorAll(".video-card");
-    }
-    catch (error){
-        console.log(error);
-    }
-})();
-
 function createCards(video){
 
     let div = document.createElement("div");
@@ -122,4 +61,66 @@ async function fetchAllVideos(){
     const allVideos = await ((await fetch(APIVIDEOS, options)).json());
     removeVideosOfSection(allVideosSection);
     putVideos(allVideos, allVideosSection);
+}
+
+
+(async () =>{ //auto-executable anonimous function
+    try{
+        const videos = await (await fetch(APIVIDEOS, options)).json();
+        const popularVideos = await (await fetch(APIMOSTPOPULAR, options)).json();
+        const popularVideosPlaceholders = document.querySelectorAll(".popular-videos-placeholder");
+        const lastVideosPlaceholders = document.querySelectorAll(".last-videos-placeholder");
+
+        putVideos(popularVideos, mostPopularSection);
+        removeVideos(popularVideosPlaceholders);
+        
+        putVideos(videos, lastVideosSection);
+        removeVideos(lastVideosPlaceholders);
+
+        const cards = null || document.querySelectorAll(".video-card");
+    }
+    catch (error){
+        console.log(error);
+    }
+})();
+
+for(item of navItems){
+    item.addEventListener("click", (e)=>{
+        let target = e.target;
+        console.log(target.textContent);
+        switch(target.textContent){
+            case "Home":
+                for(let section of allSections){
+                    if(section.classList.contains("most-popular") || section.classList.contains("last-videos")){
+                        section.classList.remove("inactive");
+                    }
+                    else{
+                        section.classList.add("inactive");
+                    }
+                }
+
+                break;
+            case "Videos":
+                for(let section of allSections){
+                    if(section.classList.contains("all-videos")){
+                        section.classList.remove("inactive");
+                    }
+                    else{
+                        section.classList.add("inactive");
+                    }
+                }
+                fetchAllVideos();
+                break;
+            case "Series":
+                for(let section of allSections){
+                    if(section.classList.contains("series")){
+                        section.classList.remove("inactive");
+                    }
+                    else{
+                        section.classList.add("inactive");
+                    }
+                }
+                break;
+        }
+    });
 }
