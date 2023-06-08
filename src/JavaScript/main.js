@@ -1,8 +1,10 @@
 // import fetch from "node-fetch";
 const API = 'https://youtube-v31.p.rapidapi.com/search?channelId=UCi_zKr64k8WIx8miV36rr1w&part=snippet%2Cid&type=video&order=date&maxResults=8';
 const API2 = 'https://youtube-v31.p.rapidapi.com/search?channelId=UCi_zKr64k8WIx8miV36rr1w&part=snippet&type=video&chartmostpopular&maxResults=4';
+
 const mostPopularSection = document.querySelector(".most-popular");
 const lastVideosSection = document.querySelector(".last-videos");
+
 
 const options = {
 	method: 'GET',
@@ -19,27 +21,11 @@ const options = {
         const popularVideosPlaceholders = document.querySelectorAll(".popular-videos-placeholder");
         const lastVideosPlaceholders = document.querySelectorAll(".last-videos-placeholder");
 
-        for(let video of videos.items){
-            let aux = createCards(video);
-            aux.addEventListener("click", ()=>{
-                window.location = `https://www.youtube.com/watch?v=${video.id.videoId}`
-            })
-            lastVideosSection.append(aux);
-        }
-        for(let placeholder of popularVideosPlaceholders){
-            placeholder.remove();
-        }
-
-        for(let video of popularVideos.items){
-            let aux = createCards(video);
-            aux.addEventListener("click", ()=>{
-                window.location = `https://www.youtube.com/watch?v=${video.id.videoId}`
-            })
-            mostPopularSection.append(aux);
-        }
-        for(let placeholder of lastVideosPlaceholders){
-            placeholder.remove();
-        }
+        putVideos(popularVideos, mostPopularSection);
+        removeVideos(popularVideosPlaceholders);
+        
+        putVideos(videos, lastVideosSection);
+        removeVideos(lastVideosPlaceholders);
 
         const cards = null || document.querySelectorAll(".video-card");
     }
@@ -64,4 +50,19 @@ function createCards(video){
     div.append(img, p);
     return div;
 }
-function replaceVideos
+
+function putVideos(newVideos, videosContainerSection){
+    for(video of newVideos.items){
+        let aux = createCards(video);
+        aux.addEventListener("click", ()=>{
+            window.location = `https://www.youtube.com/watch?v=${video.id.videoId}`
+        })
+        videosContainerSection.append(aux);
+    }
+}
+
+function removeVideos(oldVideos){
+    for(let video of oldVideos){
+        video.remove();
+    }
+}
