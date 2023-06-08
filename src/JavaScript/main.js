@@ -4,7 +4,9 @@ const API2 = 'https://youtube-v31.p.rapidapi.com/search?channelId=UCi_zKr64k8WIx
 
 const mostPopularSection = document.querySelector(".most-popular");
 const lastVideosSection = document.querySelector(".last-videos");
-
+const allVideosSection = document.querySelector(".all-videos");
+const seriesSection = document.querySelector(".series")
+const navItems = document.querySelectorAll(".nav-items");
 
 const options = {
 	method: 'GET',
@@ -12,7 +14,34 @@ const options = {
 		'X-RapidAPI-Key': '42283b2d77msh9c22c331a971763p17bd53jsnedb20129b361',
 		'X-RapidAPI-Host': 'youtube-v31.p.rapidapi.com'
 	}
-};
+}
+
+for(item of navItems){
+    item.addEventListener("click", (e)=>{
+        let target = e.target;
+        console.log(target.textContent);
+        switch(target.textContent){
+            case "Home":
+                mostPopularSection.classList.remove("inactive");
+                lastVideosSection.classList.remove("inactive");
+                allVideosSection.classList.add("inactive");
+                seriesSection.classList.add("inactive");
+                break;
+            case "Videos":
+                allVideosSection.classList.remove("inactive");
+                mostPopularSection.classList.add("inactive");
+                lastVideosSection.classList.add("inactive");
+                seriesSection.classList.add("inactive");
+                break;
+            case "Series":
+                seriesSection.classList.remove("inactive");
+                mostPopularSection.classList.add("inactive");
+                lastVideosSection.classList.add("inactive");
+                allVideosSection.classList.add("inactive");
+                break;
+        }
+    });
+}
 
 (async () =>{ //auto-executable anonimous function
     try{
