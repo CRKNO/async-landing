@@ -5,7 +5,8 @@ const API2 = 'https://youtube-v31.p.rapidapi.com/search?channelId=UCi_zKr64k8WIx
 const mostPopularSection = document.querySelector(".most-popular");
 const lastVideosSection = document.querySelector(".last-videos");
 const allVideosSection = document.querySelector(".all-videos");
-const seriesSection = document.querySelector(".series")
+const seriesSection = document.querySelector(".series");
+const allSections = document.querySelectorAll("section");
 const navItems = document.querySelectorAll(".nav-items");
 
 const options = {
@@ -22,22 +23,34 @@ for(item of navItems){
         console.log(target.textContent);
         switch(target.textContent){
             case "Home":
-                mostPopularSection.classList.remove("inactive");
-                lastVideosSection.classList.remove("inactive");
-                allVideosSection.classList.add("inactive");
-                seriesSection.classList.add("inactive");
+                for(let section of allSections){
+                    if(section.classList.contains("most-popular") || section.classList.contains("last-videos")){
+                        section.classList.remove("inactive");
+                    }
+                    else{
+                        section.classList.add("inactive");
+                    }
+                }
                 break;
             case "Videos":
-                allVideosSection.classList.remove("inactive");
-                mostPopularSection.classList.add("inactive");
-                lastVideosSection.classList.add("inactive");
-                seriesSection.classList.add("inactive");
+                for(let section of allSections){
+                    if(section.classList.contains("all-videos")){
+                        section.classList.remove("inactive");
+                    }
+                    else{
+                        section.classList.add("inactive");
+                    }
+                }
                 break;
             case "Series":
-                seriesSection.classList.remove("inactive");
-                mostPopularSection.classList.add("inactive");
-                lastVideosSection.classList.add("inactive");
-                allVideosSection.classList.add("inactive");
+                for(let section of allSections){
+                    if(section.classList.contains("series")){
+                        section.classList.remove("inactive");
+                    }
+                    else{
+                        section.classList.add("inactive");
+                    }
+                }
                 break;
         }
     });
