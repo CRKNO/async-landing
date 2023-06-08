@@ -23,7 +23,6 @@ const options = {
             let aux = createCards(video);
             aux.addEventListener("click", ()=>{
                 window.location = `https://www.youtube.com/watch?v=${video.id.videoId}`
-                console.log(video.id.videoId)
             })
             lastVideosSection.append(aux);
         }
@@ -35,7 +34,6 @@ const options = {
             let aux = createCards(video);
             aux.addEventListener("click", ()=>{
                 window.location = `https://www.youtube.com/watch?v=${video.id.videoId}`
-                console.log(video.id.videoId)
             })
             mostPopularSection.append(aux);
         }
@@ -44,7 +42,6 @@ const options = {
         }
 
         const cards = null || document.querySelectorAll(".video-card");
-        console.log(cards)
     }
     catch (error){
         console.log(error);
@@ -53,17 +50,18 @@ const options = {
 
 function createCards(video){
 
-let div = document.createElement("div");
-div.classList.add("video-card");
+    let div = document.createElement("div");
+    div.classList.add("video-card");
 
-let img = document.createElement("img");
-img.setAttribute("src", video.snippet.thumbnails.high.url);
-img.setAttribute("alt", video.snippet.title);
+    let img = document.createElement("img");
+    img.setAttribute("src", video.snippet.thumbnails.high.url);
+    img.setAttribute("alt", video.snippet.title);
 
-let p = document.createElement("p");
-p.classList.add("card-title");
-p.textContent = video.snippet.title;
+    let p = document.createElement("p");
+    p.classList.add("card-title");
+    p.textContent = video.snippet.title;
 
-div.append(img, p);
-return div;
+    div.append(img, p);
+    return div;
 }
+function replaceVideos
