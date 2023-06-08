@@ -103,10 +103,10 @@ section .title{
 
     padding-block-end: 2rem;
 }
-.most-popular, .last-videos, .serial-videos{
+.video-container-section{
     display: grid;
     grid-template-columns: repeat(auto-fill, 240px);
-    grid-template-rows: 2rem 1fr;
+    grid-template-rows: 2rem repeat(auto-fill, 1fr);
 
 }
 
