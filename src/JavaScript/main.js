@@ -1,6 +1,6 @@
 // import fetch from "node-fetch";
-const API = 'https://youtube-v31.p.rapidapi.com/search?channelId=UCi_zKr64k8WIx8miV36rr1w&part=snippet%2Cid&type=video&order=date&maxResults=8';
-const API2 = 'https://youtube-v31.p.rapidapi.com/search?channelId=UCi_zKr64k8WIx8miV36rr1w&part=snippet&type=video&chartmostpopular&maxResults=4';
+const APIVIDEOS = 'https://youtube-v31.p.rapidapi.com/search?channelId=UCi_zKr64k8WIx8miV36rr1w&part=snippet%2Cid&type=video&order=date&maxResults=8';
+const APIMOSTPOPULAR = 'https://youtube-v31.p.rapidapi.com/search?channelId=UCi_zKr64k8WIx8miV36rr1w&part=snippet&type=video&chartmostpopular&maxResults=4';
 
 const mostPopularSection = document.querySelector(".most-popular");
 const lastVideosSection = document.querySelector(".last-videos");
@@ -31,6 +31,7 @@ for(item of navItems){
                         section.classList.add("inactive");
                     }
                 }
+
                 break;
             case "Videos":
                 for(let section of allSections){
@@ -41,6 +42,7 @@ for(item of navItems){
                         section.classList.add("inactive");
                     }
                 }
+                fetchAllVideos();
                 break;
             case "Series":
                 for(let section of allSections){
@@ -58,8 +60,8 @@ for(item of navItems){
 
 (async () =>{ //auto-executable anonimous function
     try{
-        const videos = await (await fetch(API, options)).json();
-        const popularVideos = await (await fetch(API2, options)).json();
+        const videos = await (await fetch(APIVIDEOS, options)).json();
+        const popularVideos = await (await fetch(APIMOSTPOPULAR, options)).json();
         const popularVideosPlaceholders = document.querySelectorAll(".popular-videos-placeholder");
         const lastVideosPlaceholders = document.querySelectorAll(".last-videos-placeholder");
 
@@ -107,4 +109,17 @@ function removeVideos(oldVideos){
     for(let video of oldVideos){
         video.remove();
     }
+}
+function removeVideosOfSection(section){
+    const videos = section.querySelectorAll(".video-card");
+    console.log(videos);
+    for(let video of videos){
+        video.remove();
+    }
+}
+
+async function fetchAllVideos(){
+    const allVideos = await ((await fetch(APIVIDEOS, options)).json());
+    removeVideosOfSection(allVideosSection);
+    putVideos(allVideos, allVideosSection);
 }
