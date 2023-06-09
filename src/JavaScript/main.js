@@ -1,6 +1,6 @@
 // import fetch from "node-fetch";
-const APIVIDEOS = 'https://youtube-v31.p.rapidapi.com/search?channelId=UCi_zKr64k8WIx8miV36rr1w&part=snippet%2Cid&type=video&order=date&maxResults=8';
-const APIMOSTPOPULAR = 'https://youtube-v31.p.rapidapi.com/search?channelId=UCi_zKr64k8WIx8miV36rr1w&part=snippet&type=video&chartmostpopular&maxResults=4';
+const APIVIDEOS = 'https://youtube-v31.p.rapidapi.com/search?channelId=UCi_zKr64k8WIx8miV36rr1w&part=snippet%2Cid&type=video&order=date&maxResults=';
+const APIMOSTPOPULAR = 'https://youtube-v31.p.rapidapi.com/search?channelId=UCi_zKr64k8WIx8miV36rr1w&part=snippet&type=video&chartmostpopular&maxResults=';
 
 const mostPopularSection = document.querySelector(".most-popular");
 const lastVideosSection = document.querySelector(".last-videos");
@@ -49,6 +49,7 @@ function removeVideos(oldVideos){
         video.remove();
     }
 }
+
 function removeVideosOfSection(section){
     const videos = section.querySelectorAll(".video-card");
     console.log(videos);
@@ -58,16 +59,17 @@ function removeVideosOfSection(section){
 }
 
 async function fetchAllVideos(){
-    const allVideos = await ((await fetch(APIVIDEOS, options)).json());
+    const allVideos = await ((await fetch(`${APIVIDEOS}8`, options)).json());
     removeVideosOfSection(allVideosSection);
     putVideos(allVideos, allVideosSection);
 }
 
 
+
 (async () =>{ //auto-executable anonimous function
     try{
-        const videos = await (await fetch(APIVIDEOS, options)).json();
-        const popularVideos = await (await fetch(APIMOSTPOPULAR, options)).json();
+        const videos = await (await fetch(`${APIVIDEOS}8`, options)).json();
+        const popularVideos = await (await fetch(`${APIMOSTPOPULAR}4`, options)).json();
         const popularVideosPlaceholders = document.querySelectorAll(".popular-videos-placeholder");
         const lastVideosPlaceholders = document.querySelectorAll(".last-videos-placeholder");
 
@@ -124,3 +126,4 @@ for(item of navItems){
         }
     });
 }
+
