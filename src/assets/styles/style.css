@@ -63,10 +63,11 @@ nav ul{
     
     font-size: 1.2rem;
 }
-nav ul a{
+nav ul li{
     color:inherit;
+    cursor: pointer;
 }
-nav ul a:hover{
+nav ul li:hover{
     text-decoration: underline;
 }
 
