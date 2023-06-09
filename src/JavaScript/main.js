@@ -1,8 +1,13 @@
 // import fetch from "node-fetch";
-const API = 'https://youtube-v31.p.rapidapi.com/search?channelId=UCi_zKr64k8WIx8miV36rr1w&part=snippet%2Cid&type=video&order=date&maxResults=8';
-const API2 = 'https://youtube-v31.p.rapidapi.com/search?channelId=UCi_zKr64k8WIx8miV36rr1w&part=snippet&type=video&chartmostpopular&maxResults=4';
+const APIVIDEOS = 'https://youtube-v31.p.rapidapi.com/search?channelId=UCi_zKr64k8WIx8miV36rr1w&part=snippet%2Cid&type=video&order=date&maxResults=';
+const APIMOSTPOPULAR = 'https://youtube-v31.p.rapidapi.com/search?channelId=UCi_zKr64k8WIx8miV36rr1w&part=snippet&type=video&chartmostpopular&maxResults=';
+
 const mostPopularSection = document.querySelector(".most-popular");
 const lastVideosSection = document.querySelector(".last-videos");
+const allVideosSection = document.querySelector(".all-videos");
+const seriesSection = document.querySelector(".series");
+const allSections = document.querySelectorAll("section");
+const navItems = document.querySelectorAll(".nav-items");
 
 const options = {
 	method: 'GET',
@@ -10,43 +15,7 @@ const options = {
 		'X-RapidAPI-Key': '42283b2d77msh9c22c331a971763p17bd53jsnedb20129b361',
 		'X-RapidAPI-Host': 'youtube-v31.p.rapidapi.com'
 	}
-};
-
-(async () =>{ //auto-executable anonimous function
-    try{
-        const videos = await (await fetch(API, options)).json();
-        const popularVideos = await (await fetch(API2, options)).json();
-        const popularVideosPlaceholders = document.querySelectorAll(".popular-videos-placeholder");
-        const lastVideosPlaceholders = document.querySelectorAll(".last-videos-placeholder");
-
-        for(let video of videos.items){
-            let aux = createCards(video);
-            aux.addEventListener("click", ()=>{
-                window.location = `https://www.youtube.com/watch?v=${video.id.videoId}`
-            })
-            lastVideosSection.append(aux);
-        }
-        for(let placeholder of popularVideosPlaceholders){
-            placeholder.remove();
-        }
-
-        for(let video of popularVideos.items){
-            let aux = createCards(video);
-            aux.addEventListener("click", ()=>{
-                window.location = `https://www.youtube.com/watch?v=${video.id.videoId}`
-            })
-            mostPopularSection.append(aux);
-        }
-        for(let placeholder of lastVideosPlaceholders){
-            placeholder.remove();
-        }
-
-        const cards = null || document.querySelectorAll(".video-card");
-    }
-    catch (error){
-        console.log(error);
-    }
-})();
+}
 
 function createCards(video){
 
@@ -64,4 +33,97 @@ function createCards(video){
     div.append(img, p);
     return div;
 }
-function replaceVideos
+
+function putVideos(newVideos, videosContainerSection){
+    for(video of newVideos.items){
+        let aux = createCards(video);
+        aux.addEventListener("click", ()=>{
+            window.location = `https://www.youtube.com/watch?v=${video.id.videoId}`
+        })
+        videosContainerSection.append(aux);
+    }
+}
+
+function removeVideos(oldVideos){
+    for(let video of oldVideos){
+        video.remove();
+    }
+}
+
+function removeVideosOfSection(section){
+    const videos = section.querySelectorAll(".video-card");
+    console.log(videos);
+    for(let video of videos){
+        video.remove();
+    }
+}
+
+async function fetchAllVideos(){
+    const allVideos = await ((await fetch(`${APIVIDEOS}8`, options)).json());
+    removeVideosOfSection(allVideosSection);
+    putVideos(allVideos, allVideosSection);
+}
+
+
+
+(async () =>{ //auto-executable anonimous function
+    try{
+        const videos = await (await fetch(`${APIVIDEOS}8`, options)).json();
+        const popularVideos = await (await fetch(`${APIMOSTPOPULAR}4`, options)).json();
+        const popularVideosPlaceholders = document.querySelectorAll(".popular-videos-placeholder");
+        const lastVideosPlaceholders = document.querySelectorAll(".last-videos-placeholder");
+
+        putVideos(popularVideos, mostPopularSection);
+        removeVideos(popularVideosPlaceholders);
+        
+        putVideos(videos, lastVideosSection);
+        removeVideos(lastVideosPlaceholders);
+
+        const cards = null || document.querySelectorAll(".video-card");
+    }
+    catch (error){
+        console.log(error);
+    }
+})();
+
+for(item of navItems){
+    item.addEventListener("click", (e)=>{
+        let target = e.target;
+        console.log(target.textContent);
+        switch(target.textContent){
+            case "Home":
+                for(let section of allSections){
+                    if(section.classList.contains("most-popular") || section.classList.contains("last-videos")){
+                        section.classList.remove("inactive");
+                    }
+                    else{
+                        section.classList.add("inactive");
+                    }
+                }
+
+                break;
+            case "Videos":
+                for(let section of allSections){
+                    if(section.classList.contains("all-videos")){
+                        section.classList.remove("inactive");
+                    }
+                    else{
+                        section.classList.add("inactive");
+                    }
+                }
+                fetchAllVideos();
+                break;
+            case "Series":
+                for(let section of allSections){
+                    if(section.classList.contains("series")){
+                        section.classList.remove("inactive");
+                    }
+                    else{
+                        section.classList.add("inactive");
+                    }
+                }
+                break;
+        }
+    });
+}
+
