@@ -17,6 +17,10 @@ const options = {
 	}
 }
 
+let activeView = "";
+
+let pageToken = "";
+
 function createCards(video){
 
     let div = document.createElement("div");
@@ -35,6 +39,7 @@ function createCards(video){
 }
 
 function putVideos(newVideos, videosContainerSection){
+    // console.log(newVideos)
     for(video of newVideos.items){
         let aux = createCards(video);
         aux.addEventListener("click", ()=>{
@@ -58,9 +63,15 @@ function removeVideosOfSection(section){
     }
 }
 
-async function fetchAllVideos(){
-    const allVideos = await ((await fetch(`${APIVIDEOS}8`, options)).json());
-    removeVideosOfSection(allVideosSection);
+async function fetchAllVideos(pgToken){
+    pgToken = pgToken || "";
+    // console.log(pgToken)
+    const allVideos = await ((await fetch(`${APIVIDEOS}12&pageToken=${pgToken}`, options)).json());
+    pageToken = allVideos.nextPageToken;
+    if(activeView != "videos"){
+        activeView = "videos";
+        removeVideosOfSection(allVideosSection);
+    }  
     putVideos(allVideos, allVideosSection);
 }
 
@@ -88,6 +99,7 @@ async function fetchAllVideos(){
 
 for(item of navItems){
     item.addEventListener("click", (e)=>{
+        window.scroll(0, 0);
         let target = e.target;
         console.log(target.textContent);
         switch(target.textContent){
@@ -127,3 +139,10 @@ for(item of navItems){
     });
 }
 
+window.addEventListener("scroll", (e) =>{
+    // console.log(window.scrollY);
+    if(window.scrollY + window.innerHeight >= document.body.clientHeight && activeView === "videos"){
+        console.log('lllllllllllllllllllllllllllllllll');
+        fetchAllVideos(pageToken);
+    }
+})
