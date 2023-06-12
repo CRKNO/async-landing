@@ -18,8 +18,9 @@ const options = {
 }
 
 let activeView = "";
-
 let pageToken = "";
+let recived = [];
+let b = "";
 
 function createCards(video){
 
@@ -41,6 +42,9 @@ function createCards(video){
 function putVideos(newVideos, videosContainerSection){
     // console.log(newVideos)
     for(video of newVideos.items){
+        if(activeView === "videos") {recived.push(video)};
+        b = video;
+        console.log(video.id)
         let aux = createCards(video);
         aux.addEventListener("click", ()=>{
             window.location = `https://www.youtube.com/watch?v=${video.id.videoId}`
@@ -67,6 +71,7 @@ async function fetchAllVideos(pgToken){
     pgToken = pgToken || "";
     // console.log(pgToken)
     const allVideos = await ((await fetch(`${APIVIDEOS}12&pageToken=${pgToken}`, options)).json());
+    console.log("allVideos: " + allVideos)
     pageToken = allVideos.nextPageToken;
     if(activeView != "videos"){
         activeView = "videos";
@@ -146,3 +151,17 @@ window.addEventListener("scroll", (e) =>{
         fetchAllVideos(pageToken);
     }
 })
+
+function a(arr){
+    arr.map((video) =>{
+        let aux = 0;
+        for(let item of arr){
+            if(video.id.videoId === item.id.videoId){
+                aux++;
+            }
+            if(aux === 2){
+                console.log(item.id.videosId);
+            }
+        }
+    })
+}
