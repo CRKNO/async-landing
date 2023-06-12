@@ -20,7 +20,6 @@ const options = {
 let activeView = "";
 let pageToken = "";
 let recived = [];
-let b = "";
 
 function createCards(video){
 
@@ -43,8 +42,6 @@ function putVideos(newVideos, videosContainerSection){
     // console.log(newVideos)
     for(video of newVideos.items){
         if(activeView === "videos") {recived.push(video)};
-        b = video;
-        console.log(video.id)
         let aux = createCards(video);
         aux.addEventListener("click", ()=>{
             window.location = `https://www.youtube.com/watch?v=${video.id.videoId}`
@@ -61,7 +58,6 @@ function removeVideos(oldVideos){
 
 function removeVideosOfSection(section){
     const videos = section.querySelectorAll(".video-card");
-    console.log(videos);
     for(let video of videos){
         video.remove();
     }
@@ -69,14 +65,12 @@ function removeVideosOfSection(section){
 
 async function fetchAllVideos(pgToken){
     pgToken = pgToken || "";
-    // console.log(pgToken)
-    const allVideos = await ((await fetch(`${APIVIDEOS}12&pageToken=${pgToken}`, options)).json());
-    console.log("allVideos: " + allVideos)
+    const allVideos = await ((await fetch(`${APIVIDEOS}10&pageToken=${pgToken}`, options)).json());
     pageToken = allVideos.nextPageToken;
     if(activeView != "videos"){
         activeView = "videos";
         removeVideosOfSection(allVideosSection);
-    }  
+    }
     putVideos(allVideos, allVideosSection);
 }
 
@@ -106,9 +100,9 @@ for(item of navItems){
     item.addEventListener("click", (e)=>{
         window.scroll(0, 0);
         let target = e.target;
-        console.log(target.textContent);
         switch(target.textContent){
             case "Home":
+                activeView = "home";
                 for(let section of allSections){
                     if(section.classList.contains("most-popular") || section.classList.contains("last-videos")){
                         section.classList.remove("inactive");
@@ -145,23 +139,7 @@ for(item of navItems){
 }
 
 window.addEventListener("scroll", (e) =>{
-    // console.log(window.scrollY);
     if(window.scrollY + window.innerHeight >= document.body.clientHeight && activeView === "videos"){
-        console.log('lllllllllllllllllllllllllllllllll');
         fetchAllVideos(pageToken);
     }
 })
-
-function a(arr){
-    arr.map((video) =>{
-        let aux = 0;
-        for(let item of arr){
-            if(video.id.videoId === item.id.videoId){
-                aux++;
-            }
-            if(aux === 2){
-                console.log(item.id.videosId);
-            }
-        }
-    })
-}
